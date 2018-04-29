@@ -1,0 +1,22 @@
+{
+  "name": "multi-gulp",
+  "description": "FXXX Project",
+  "main": "index.js",
+  "authors": [
+    "ssc <1033729276@qq.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/chaossssss/Multi-Gulp",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "less": "^3.0.0",
+    "ejs": "^1.0.0"
+  }
+}
