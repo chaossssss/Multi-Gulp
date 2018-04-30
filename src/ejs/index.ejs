@@ -6,14 +6,32 @@
 		<link rel="stylesheet" type="text/css" href="/css/reset.css">
 		<link rel="stylesheet" type="text/css" href="/css/index.css">
 		<script type="text/javascript" src="/js/jquery.min.js"></script>
+		<% if (mode === 'prod') { %>
+			<%- `@Html.Partial("@Html.Action("SeoModel","PartialView",new { name = "seoIndex", id = 0})")` %>
+		<% }else{ %>
+			<%- `<title></title>` %>
+		<% } %>
 	</head>
 	<body>
-		<!--页面头部-->
-		<%- include header %>
+		<!-- build:header -->
+		<% if (mode === 'prod') { %>
+			<%- `@Html.Partial("header")` %>
+		<% }else{ %>
+			<%- include header %>
+		<% } %>
+		<!-- enbuild -->
 		<div>
 			<div class="box"></div>
 		</div>
-		<!--页面尾部-->
-		<%- include footer %>
+		<!-- build:footer -->
+		<% if (mode === 'prod') { %>
+			<%- `@Html.Partial("footer")` %>
+		<% }else{ %>
+			<%- include footer %>
+		<% } %>
+		<!-- enbuild -->
+		<script type="text/javascript">
+			console.log($);
+		</script>
 	</body>
 </html>

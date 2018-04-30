@@ -12,6 +12,12 @@ var htmlbeautifyOptions = {
 	// 默认情况下，body | head 标签前会有一行空格
 	extra_liners: []
 };
+var htmlminOptions = {
+	removeComments: true, //清除HTML注释
+	collapseWhitespace: true, //压缩HTML
+	minfyJS: false,//压缩JS
+	minfyCss: false,//压缩CSS
+}
 
 gulp.task('createPC',function(){
 	config.pages.forEach(function(page){
@@ -31,15 +37,15 @@ gulp.task('libjs',function() {
 
 gulp.task('ejs',function(){
 	gulp.src('src/ejs/*.ejs')
-		.pipe($.ejs({},{}, { ext: '.html'}))
+		.pipe($.ejs({mode:'dev'},{}, { ext: '.html'}))
 		.pipe($.htmlBeautify(htmlbeautifyOptions))
 		.pipe(gulp.dest('src'))
 })
 
 gulp.task('js',function(){
-  return gulp.src(['js/*.js','js/*.min.js'])
+  return gulp.src(['src/js/*.js','src/js/*.min.js'])
     // .pipe($.uglify())
-    // .pipe(gulp.dest('app/js'))
+    .pipe(gulp.dest('dist/js'))
 })
 gulp.task('js-watch', ['js'], browserSync.reload);
 
@@ -70,3 +76,12 @@ gulp.task('serve',['libjs','ejs','less','css','js'], function() {
     gulp.watch("src/*.html").on('change', reload);
 });
 gulp.task('default', ['serve']);
+
+//打包相关任务
+gulp.task('replace',function(){
+	gulp.src('src/ejs/*.ejs')
+	.pipe($.ejs({mode:'prod'},{}, { ext: '.cshtml'}))
+	// .pipe($.htmlmin(htmlminOptions))
+	.pipe($.htmlBeautify(htmlbeautifyOptions))
+	.pipe(gulp.dest('dist/views'))
+})

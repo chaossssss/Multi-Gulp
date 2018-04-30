@@ -29,9 +29,11 @@ project
 ### Todo
 
 - [ ] 图片压缩
+- [ ] iconfont
 - [ ] css sprite
 - [ ] 路由控制
 - [x] 模板页面
 - [x] ejs转换成html
 - [x] css添加前缀
 - [x] html格式化
+- [x] 控制开发模式
