@@ -6,17 +6,17 @@ FXXX Project
 > 项目以企业站居多，前后端未完全分离，二次开发基本上都是从服务器上拉取的代码。
 
 ### 项目结构
-
+.
 +-- config
 +-- dist
 +-- src
-	+-- css
-	+-- ejs
-	+-- fonts
-	+-- images
-	+-- js
-	+-- less
-	+-- lib
+|	+-- css
+|	+-- ejs
+|	+-- fonts
+|	+-- images
+|	+-- js
+|	+-- less
+|	+-- lib
 
 ### Todo
 
