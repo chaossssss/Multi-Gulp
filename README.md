@@ -8,14 +8,23 @@ FXXX Project
 ### 项目结构
 
 > config
+
 >dist
+
 >src
+
 >>css
+
 >>ejs
+
 >>fonts
+
 >>images
+
 >>js
+
 >>less
+
 >>lib
 
 ### Todo
