@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
-		<link rel="stylesheet" type="text/css" href="/css/reset.css">
-		<script type="text/javascript" src="/lib/ejs.min.js"></script>
-		<%= htmlWebpackPlugin.options.title %>
-	</head>
-	<body>
-		<!--页面头部-->
-		<%= process.env.mode === 'production' ? htmlWebpackPlugin.options.header : require('header.html')() %>
-		<div>
-			
-		</div>
-		<!--页面尾部-->
-		<%= process.env.mode === 'production' ? htmlWebpackPlugin.options.footer :require('footer.html')() %>
-	</body>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="/css/reset.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+<body>
+    <!--页面头部-->
+    <div>
+        header
+    </div>
+    <div>
+
+    </div>
+    <!--页面尾部-->
+    <div>
+
+    </div>
+</body>
 </html>
