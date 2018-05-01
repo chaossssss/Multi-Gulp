@@ -96,15 +96,16 @@ gulp.task('replace',function(){
 
 gulp.task('image',function(){
 	gulp.src('src/images/*.*')
-		.pipe($.imageMin({imageminOptions}))
+		.pipe($.imagemin({imageminOptions}))
 		.pipe(gulp.dest('dist/images'))
 })
 
 gulp.task('font',function(){
-	gulp.src('src/font/*.*')
+	gulp.src('src/fonts/*.*')
 		.pipe(gulp.dest('dist/fonts'))
 })
 
+gulp.task('build',['replace','image','font'])
 //雪碧图
 gulp.task('sprite', function () {
     return gulp.src('src/sprite/images/*.png')//需要合并的图片地址

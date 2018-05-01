@@ -21,6 +21,7 @@ project
     │───js
     │───less
     │───lib
+    │───sprite
 
 ```
 
@@ -30,7 +31,7 @@ project
 - [x] 图片压缩
 - [ ] 字体压缩
 - [ ] iconfont
-- [ ] css sprite
+- [x] css sprite
 - [ ] 路由控制
 - [ ] 合并文件
 - [x] 模板页面
@@ -43,8 +44,11 @@ project
 ### 任务状态
 |任务|状态|
 |:-:|:-:|
+|创建PC端模板|开放，测试，执行命令 `gulp createPC`|
+|创建WAP端模板|未开放，未测试，执行命令 `gulp createWAP`|
 |html压缩|未开放|
 |图片压缩|开放，未测试|
 |雪碧图|开放，未测试，执行命令 `gulp sprite`|
-|图片打包|未测试|
+|图片打包|已经测试|
 |字体打包|未测试|
+|项目打包|测试，执行命令 `gulp build`|
