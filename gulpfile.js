@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var config = require('./config/config.js');
+var spritesmith = require('gulp.spritesmith');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 
@@ -17,6 +18,12 @@ var htmlminOptions = {
 	collapseWhitespace: true, //压缩HTML
 	minfyJS: false,//压缩JS
 	minfyCss: false,//压缩CSS
+};
+var imageminOptions = {
+	optimizationLevel: 3, //类型：Number  默认：3  取值范围：0-7（优化等级）
+	progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
+	interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
+	multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
 }
 
 gulp.task('createPC',function(){
@@ -62,6 +69,7 @@ gulp.task('less',function(){
 
 gulp.task('css',function(){
 	gulp.src('src/css/*.css')
+		.pipe(gulp.dest('dist/css'))
 })
 
 gulp.task('serve',['libjs','ejs','less','css','js'], function() {
@@ -85,3 +93,38 @@ gulp.task('replace',function(){
 	.pipe($.htmlBeautify(htmlbeautifyOptions))
 	.pipe(gulp.dest('dist/views'))
 })
+
+gulp.task('image',function(){
+	gulp.src('src/images/*.*')
+		.pipe($.imageMin({imageminOptions}))
+		.pipe(gulp.dest('dist/images'))
+})
+
+gulp.task('font',function(){
+	gulp.src('src/font/*.*')
+		.pipe(gulp.dest('dist/fonts'))
+})
+
+//雪碧图
+gulp.task('sprite', function () {
+    return gulp.src('src/sprite/images/*.png')//需要合并的图片地址
+        .pipe(spritesmith({
+            imgName: 'src/sprite/sprite.png',//保存合并后图片的地址
+            cssName: 'src/sprite/css/sprite.css',//保存合并后对于css样式的地址
+            padding:5,//合并时两个图片的间距
+            algorithm: 'binary-tree',//注释1
+            cssTemplate: function (data) {
+                var arr=[];
+                data.sprites.forEach(function (sprite) {
+                    arr.push(".icon-"+sprite.name+
+                    "{" +
+                    "background-image: url('"+sprite.escaped_image+"');"+
+                    "background-position: "+sprite.px.offset_x+"px "+sprite.px.offset_y+"px;"+
+                    "width:"+sprite.px.width+";"+
+                    "height:"+sprite.px.height+";"+
+                    "}\n");
+                });
+                return arr.join("");
+            }
+        }))
+});

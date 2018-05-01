@@ -11,8 +11,8 @@ FXXX Project
 ```
 project
 │───config
+│	│───template
 │───dist
-│
 └───src
     │───css
     │───ejs
@@ -21,19 +21,30 @@ project
     │───js
     │───less
     │───lib
-    │
 
 ```
 
 
 ### Todo
 
-- [ ] 图片压缩
+- [x] 图片压缩
+- [ ] 字体压缩
 - [ ] iconfont
 - [ ] css sprite
 - [ ] 路由控制
+- [ ] 合并文件
 - [x] 模板页面
 - [x] ejs转换成html
 - [x] css添加前缀
 - [x] html格式化
 - [x] 控制开发模式
+
+
+### 任务状态
+|任务|状态|
+|:-:|:-:|
+|html压缩|未开放|
+|图片压缩|开放，未测试|
+|雪碧图|开放，未测试，执行命令 `gulp sprite`|
+|图片打包|未测试|
+|字体打包|未测试|
