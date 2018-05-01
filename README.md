@@ -5,8 +5,18 @@
 
 > 项目以企业站居多，前后端未完全分离，二次开发基本上都是从服务器上拉取的代码。
 
-### 项目结构
+---
 
+### 项目使用注意点
+
+* 项目安装`npm install`，安装yarn的用户`yarn install`
+* 安装完成可以执行命令 `gulp createPC`或者`gulp createWAP`，自己创建文件也是可以的
+* 项目启动`gulp`
+* 在ejs文件夹创建文件，然后在src中生成对应的HTML文件，主要是为了少一层结构
+* 在less文件夹创建文件，然后在src/css中生成对应的css文件，初始化样式文件可以直接扔在css中也可以改成less。ejs文件引用直接是引用css文件夹下的文件
+* dist文件夹为打包文件。打包主要是监听css、js、ejs，然后直接把images和fonts文件夹的文件导入到dist文件夹中。
+
+### 项目结构
 
 ```
 project
@@ -36,6 +46,7 @@ project
 - [ ] css压缩
 - [ ] js压缩
 - [ ] 合并文件
+- [ ] ~~json~~
 - [x] 模板页面
 - [x] ejs转换成html
 - [x] css添加前缀
