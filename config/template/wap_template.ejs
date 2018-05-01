@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
+		<script type="text/javascript" src="/js/jquery.min.js"></script>
+		<% if (mode === 'prod') { %>
+			<%- `@Html.Partial("@Html.Action("SeoModel","PartialView",new { name = "seoIndex", id = 0})")` %>
+		<% }else{ %>
+			<%- `<title></title>` %>
+		<% } %>
+	</head>
+	<body>
+		<!-- build:header -->
+		<% if (mode === 'prod') { %>
+			<%- `@Html.Partial("header")` %>
+		<% }else{ %>
+			<%- include header %>
+		<% } %>
+		<!-- enbuild -->
+		<div>
+			
+		</div>
+		<!-- build:footer -->
+		<% if (mode === 'prod') { %>
+			<%- `@Html.Partial("footer")` %>
+		<% }else{ %>
+			<%- include footer %>
+		<% } %>
+		<!-- enbuild -->
+	</body>
+</html>

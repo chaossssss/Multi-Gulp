@@ -38,6 +38,18 @@ gulp.task('createPC',function(){
 		.pipe(gulp.dest(config.rootPath + 'ejs'))
 })
 
+gulp.task('createWAP',function(){
+	config.pages.forEach(function(page){
+		gulp.src('config/template/wap_template.ejs')
+			.pipe($.rename(page + '.ejs'))
+			.pipe(gulp.dest(config.rootPath + 'ejs'))
+	})
+	gulp.src('config/template/header.ejs')
+		.pipe(gulp.dest(config.rootPath + 'ejs'))
+	gulp.src('config/template/footer.ejs')
+		.pipe(gulp.dest(config.rootPath + 'ejs'))
+})
+
 gulp.task('libjs',function() {
 	gulp.src('src/lib/*.js')
 })

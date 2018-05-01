@@ -32,7 +32,9 @@ project
 - [ ] 字体压缩
 - [ ] iconfont
 - [x] css sprite
-- [ ] 路由控制
+- [ ] ~~路由控制~~
+- [ ] css压缩
+- [ ] js压缩
 - [ ] 合并文件
 - [x] 模板页面
 - [x] ejs转换成html
@@ -45,7 +47,7 @@ project
 |任务|状态|
 |:-:|:-:|
 |创建PC端模板|开放，测试，执行命令 `gulp createPC`|
-|创建WAP端模板|未开放，未测试，执行命令 `gulp createWAP`|
+|创建WAP端模板|开放，未测试，执行命令 `gulp createWAP`|
 |html压缩|未开放|
 |图片压缩|开放，未测试|
 |雪碧图|开放，未测试，执行命令 `gulp sprite`|
