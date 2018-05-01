@@ -87,6 +87,7 @@ gulp.task('css',function(){
 gulp.task('serve',['libjs','ejs','less','css','js'], function() {
     browserSync.init({
         server: "src",
+        // port: 8081
     });
     gulp.watch("src/lib/*.js",['libjs']);
     gulp.watch("src/ejs/*.ejs",['ejs']).on('change',reload);
