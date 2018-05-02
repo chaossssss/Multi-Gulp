@@ -15,7 +15,9 @@
 * 在ejs文件夹创建文件，然后在src中生成对应的HTML文件，主要是为了少一层结构
 * 在less文件夹创建文件，然后在src/css中生成对应的css文件，初始化样式文件可以直接扔在css中也可以改成less。ejs文件引用直接是引用css文件夹下的文件
 * dist文件夹为打包文件。打包主要是监听css、js、ejs，然后直接把images和fonts文件夹的文件导入到dist文件夹中
+* 雪碧图把要处理的图片放到sprite/images文件夹下
 * 安装了bower，通过bower安装的库设置在了lib文件夹下，意义不大，主要是为了查库的版本
+* github上传空文件夹不是特别好，请参照项目结构自行补足
 
 ### 项目结构
 
@@ -33,6 +35,8 @@ project
     │───less
     │───lib
     │───sprite
+    │	│───images
+    │	│───css
 
 ```
 
