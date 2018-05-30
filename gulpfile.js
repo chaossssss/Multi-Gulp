@@ -76,6 +76,7 @@ gulp.task('less',function(){
     	cascade: true,	//是否美化属性值
     	remove: true	//是否去掉不必要的前缀
     }))
+    // .pipe($.cleanCss({compatibility: 'ie8'}))	//压缩css
     .pipe(gulp.dest('src/css'))
 });
 
@@ -91,7 +92,10 @@ gulp.task('serve',['libjs','ejs','less','css','js'], function() {
     });
     gulp.watch("src/lib/*.js",['libjs']);
     gulp.watch("src/ejs/*.ejs",['ejs']).on('change',reload);
-    gulp.watch("src/less/*.less",['less']);
+    // gulp.watch("src/less/*.less",['less']);
+    gulp.watch("src/less/*.less",function(){
+    	$.multiProcess(['less'],function(){})
+    });
     gulp.watch("src/css/*.css",['css']).on('change', reload);
     gulp.watch("src/js/*.js",['js']);
     gulp.watch("src/*.html").on('change', reload);

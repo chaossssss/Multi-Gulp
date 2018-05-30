@@ -6,7 +6,7 @@
 		<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
 		<script type="text/javascript" src="/js/jquery.min.js"></script>
 		<% if (mode === 'prod') { %>
-			<%- `@Html.Partial("@Html.Action("SeoModel","PartialView",new { name = "seoIndex", id = 0})")` %>
+			<%- `@Html.Action("SeoModel","PartialView",new { name = "seoIndex", id = 1})` %>
 		<% }else{ %>
 			<%- `<title></title>` %>
 		<% } %>

@@ -51,6 +51,7 @@ project
 - [ ] css压缩
 - [ ] js压缩
 - [x] 端口
+- [x] 修复引用less文件的问题
 - [ ] 合并文件
 - [ ] ~~json~~
 - [x] 模板页面
@@ -67,6 +68,7 @@ project
 |创建PC端模板|开放，已测试，执行命令 `gulp createPC`|
 |创建WAP端模板|开放，未测试，执行命令 `gulp createWAP`|
 |html压缩|未开放|
+|css压缩|未开放，已测试，gulpfile 79行|
 |图片压缩|开放，未测试|
 |雪碧图|开放，未测试，执行命令 `gulp sprite`|
 |图片打包|已测试|
