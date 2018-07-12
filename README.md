@@ -53,6 +53,7 @@ project
 - [x] 端口
 - [x] 修复引用less文件的问题
 - [ ] 合并文件
+- [ ] css Modules
 - [ ] ~~json~~
 - [x] 模板页面
 - [x] bower
