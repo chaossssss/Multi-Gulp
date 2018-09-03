@@ -5,6 +5,8 @@ var spritesmith = require('gulp.spritesmith');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 
+var replacePath = '/jijuwang';
+
 var htmlbeautifyOptions = {
 	indent_size: 4,
 	indent_char: ' ',
@@ -110,6 +112,25 @@ gulp.task('replace',function(){
 	.pipe($.htmlBeautify(htmlbeautifyOptions))
 	.pipe(gulp.dest('dist/views'))
 })
+// 静态页面导入到static
+gulp.task('toStatic',function(){
+	gulp.src('src/ejs/*.ejs')
+	.pipe($.ejs({mode:'mode'},{}, {ext: '.html'}))
+	.pipe($.replace('/images/',replacePath + '/images/'))
+	.pipe($.replace('/js/',replacePath + '/js/'))
+	.pipe($.replace('/css/',replacePath + '/css/'))
+	.pipe($.htmlBeautify(htmlbeautifyOptions))
+	.pipe(gulp.dest('dist/static'))
+})
+
+
+
+gulp.task('reCssImgPath',function(){
+	gulp.src('src/css/*.css')
+		.pipe($.replace('/images/',replacePath + '/images/'))
+		.pipe($.replace('/fonts/',replacePath + '/fonts/'))
+		.pipe(gulp.dest('dist/reCss'))
+})
 
 gulp.task('image',function(){
 	gulp.src('src/images/*.*')
@@ -123,6 +144,9 @@ gulp.task('font',function(){
 })
 
 gulp.task('build',['replace','image','font'])
+//替换路径指令
+gulp.task('rePath',['toStatic','reCssImgPath']);
+
 //雪碧图
 gulp.task('sprite', function () {
     return gulp.src('src/sprite/images/*.png')//需要合并的图片地址
