@@ -72,12 +72,14 @@ gulp.task('js-watch', ['js'], browserSync.reload);
 
 gulp.task('less',function(){
   gulp.src('src/less/*.less')
-    .pipe($.less())
     .pipe($.autoprefixer({
     	browsers: ['last 4 versions','>5%'],
     	cascade: true,	//是否美化属性值
     	remove: true	//是否去掉不必要的前缀
-    }))
+    }))    
+    .pipe($.sourcemaps.init())
+    .pipe($.less({compress:true}))
+    .pipe($.sourcemaps.write("./"))
     // .pipe($.cleanCss({compatibility: 'ie8'}))	//压缩css
     .pipe(gulp.dest('src/css'))
 });

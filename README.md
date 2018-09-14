@@ -18,6 +18,7 @@
 * 雪碧图把要处理的图片放到sprite/images文件夹下
 * 安装了bower，通过bower安装的库设置在了lib文件夹下，意义不大，主要是为了查库的版本
 * github上传空文件夹不是特别好，请参照项目结构自行补足
+* 关于文件路径替换在gulpfile文件中有一个replacePath变量，修改成想要的地址即可。修改的是html文件中的css，js，图片以及css文件中的图片和字体路径。
 
 ### 项目结构
 
@@ -61,6 +62,8 @@ project
 - [x] css添加前缀
 - [x] html格式化
 - [x] 控制开发模式
+- [x] 文件路径替换
+- [x] sourcemap 显示less位置
 
 
 ### 任务状态
@@ -76,3 +79,5 @@ project
 |字体打包|未测试|
 |项目打包|已测试，执行命令 `gulp build`|
 |端口|已测试，目前默认，在port中自行修改|
+|sourcemap|已测试|
+|文件路径替换|已测试，执行命令 `gulp rePath`|

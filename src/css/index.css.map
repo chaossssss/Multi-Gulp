@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.less"],"names":[],"mappings":"AAAA,QACC,qDAED,UACC,WAAA,CACA,YAFD,SAGC,OACC,UAAA,CACA","sourcesContent":[".banner {\r\n\tbackground: url(/images/banner1.jpg) no-repeat center;\r\n}\r\n.text-box {\r\n\twidth: 100px;\r\n\theight: 40px;\r\n\t.text {\r\n\t\tcolor: #ccc;\r\n\t\tfont-size: 20px;\r\n\t}\r\n}"],"file":"index.css"}
