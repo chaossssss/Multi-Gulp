@@ -84,12 +84,12 @@ gulp.task('less',function(){
     .pipe(gulp.dest('src/css'))
 });
 
-gulp.task('css',function(){
+gulp.task('sourcemapCss',function(){
 	gulp.src('src/css/*.css')
-		.pipe(gulp.dest('dist/css'))
+		.pipe(gulp.dest('dist/sourcemapCSS'))
 })
 
-gulp.task('serve',['libjs','ejs','less','css','js'], function() {
+gulp.task('serve',['libjs','ejs','less','sourcemapCss','js'], function() {
     browserSync.init({
         server: "src",
         // port: 8081
@@ -100,7 +100,7 @@ gulp.task('serve',['libjs','ejs','less','css','js'], function() {
     gulp.watch("src/less/*.less",function(){
     	$.multiProcess(['less'],function(){})
     });
-    gulp.watch("src/css/*.css",['css']).on('change', reload);
+    gulp.watch("src/css/*.css",['sourcemapCss']).on('change', reload);
     gulp.watch("src/js/*.js",['js']);
     gulp.watch("src/*.html").on('change', reload);
 });
@@ -145,7 +145,21 @@ gulp.task('font',function(){
 		.pipe(gulp.dest('dist/fonts'))
 })
 
-gulp.task('build',['replace','image','font'])
+gulp.task('css',function(){
+  gulp.src('src/less/*.less')
+    .pipe($.autoprefixer({
+    	browsers: ['last 4 versions','>5%'],
+    	cascade: true,	//是否美化属性值
+    	remove: true	//是否去掉不必要的前缀
+    }))    
+    .pipe($.less({}))
+    // .pipe($.cleanCss({compatibility: 'ie8'}))	//压缩css
+    .pipe(gulp.dest('dist/css'))
+});
+
+
+
+gulp.task('build',['replace','image','font','css'])
 //替换路径指令
 gulp.task('rePath',['toStatic','reCssImgPath']);
 
