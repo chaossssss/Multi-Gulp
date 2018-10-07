@@ -146,6 +146,8 @@ gulp.task('font',function(){
 })
 
 gulp.task('css',function(){
+  gulp.src('src/css/*.css')
+    .pipe(gulp.dest('dist/css'))
   gulp.src('src/less/*.less')
     .pipe($.autoprefixer({
     	browsers: ['last 4 versions','>5%'],
