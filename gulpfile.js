@@ -78,7 +78,7 @@ gulp.task('less',function(){
     	remove: true	//是否去掉不必要的前缀
     }))    
     .pipe($.sourcemaps.init())
-    .pipe($.less({compress:true}))
+    .pipe($.less({compress:false}))	//要压缩改成true
     .pipe($.sourcemaps.write("./"))
     // .pipe($.cleanCss({compatibility: 'ie8'}))	//压缩css
     .pipe(gulp.dest('src/css'))
@@ -86,7 +86,7 @@ gulp.task('less',function(){
 
 gulp.task('sourcemapCss',function(){
 	gulp.src('src/css/*.css')
-		.pipe(gulp.dest('dist/sourcemapCSS'))
+		.pipe(gulp.dest('dist/css'))
 })
 
 gulp.task('serve',['libjs','ejs','less','sourcemapCss','js'], function() {
