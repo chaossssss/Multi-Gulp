@@ -28,7 +28,7 @@ var imageminOptions = {
 	multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
 }
 
-gulp.task('createPC',function(){
+gulp.task('createPC',function(done){
 	config.pages.forEach(function(page){
 		gulp.src('config/template/pc_template.ejs')
 			.pipe($.rename(page + '.ejs'))
@@ -38,9 +38,10 @@ gulp.task('createPC',function(){
 		.pipe(gulp.dest(config.rootPath + 'ejs'))
 	gulp.src('config/template/footer.ejs')
 		.pipe(gulp.dest(config.rootPath + 'ejs'))
+	done()
 })
 
-gulp.task('createWAP',function(){
+gulp.task('createWAP',function(done){
 	config.pages.forEach(function(page){
 		gulp.src('config/template/wap_template.ejs')
 			.pipe($.rename(page + '.ejs'))
@@ -50,27 +51,33 @@ gulp.task('createWAP',function(){
 		.pipe(gulp.dest(config.rootPath + 'ejs'))
 	gulp.src('config/template/footer.ejs')
 		.pipe(gulp.dest(config.rootPath + 'ejs'))
+	done()
 })
 
-gulp.task('libjs',function() {
+gulp.task('libjs',function(done) {
 	gulp.src('src/lib/*.js')
+	done()
 })
 
-gulp.task('ejs',function(){
+gulp.task('ejs',function(done){
 	gulp.src('src/ejs/*.ejs')
 		.pipe($.ejs({mode:'dev'},{}, { ext: '.html'}))
 		.pipe($.htmlBeautify(htmlbeautifyOptions))
 		.pipe(gulp.dest('src'))
+	done()
 })
 
 gulp.task('js',function(){
-  return gulp.src(['src/js/*.js','src/js/*.min.js'])
-    // .pipe($.uglify())
-    .pipe(gulp.dest('dist/js'))
+	return new Promise(function(resolve, reject){
+		gulp.src(['src/js/*.js','src/js/*.min.js'])
+    	// .pipe($.uglify())
+    	.pipe(gulp.dest('dist/js'))
+	    resolve()
+	})
 })
-gulp.task('js-watch', ['js'], browserSync.reload);
+gulp.task('js-watch',gulp.series('js', browserSync.reload));
 
-gulp.task('less',function(){
+gulp.task('less',function(done){
   gulp.src('src/less/*.less')
     .pipe($.autoprefixer({
     	browsers: ['last 4 versions','>5%'],
@@ -82,40 +89,43 @@ gulp.task('less',function(){
     .pipe($.sourcemaps.write("./"))
     // .pipe($.cleanCss({compatibility: 'ie8'}))	//压缩css
     .pipe(gulp.dest('src/css'))
+  done()
 });
 
-gulp.task('sourcemapCss',function(){
+gulp.task('sourcemapCss',function(done){
 	gulp.src('src/css/*.css')
 		.pipe(gulp.dest('dist/css'))
+	done()
 })
 
-gulp.task('serve',['libjs','ejs','less','sourcemapCss','js'], function() {
+gulp.task('serve',gulp.series('libjs','ejs','less','sourcemapCss','js', function() {
     browserSync.init({
         server: "src",
         // port: 8081
     });
-    gulp.watch("src/lib/*.js",['libjs']);
-    gulp.watch("src/ejs/*.ejs",['ejs']).on('change',reload);
+    gulp.watch("src/lib/*.js",gulp.series('libjs'));
+    gulp.watch("src/ejs/*.ejs",gulp.series('ejs')).on('change',reload);
     // gulp.watch("src/less/*.less",['less']);
     gulp.watch("src/less/*.less",function(){
     	$.multiProcess(['less'],function(){})
     });
-    gulp.watch("src/css/*.css",['sourcemapCss']).on('change', reload);
-    gulp.watch("src/js/*.js",['js']);
+    gulp.watch("src/css/*.css",gulp.series('sourcemapCss')).on('change', reload);
+    gulp.watch("src/js/*.js",gulp.series('js'));
     gulp.watch("src/*.html").on('change', reload);
-});
-gulp.task('default', ['serve']);
+}));
+gulp.task('default',gulp.series('serve'));
 
 //打包相关任务
-gulp.task('replace',function(){
+gulp.task('replace',function(done){
 	gulp.src('src/ejs/*.ejs')
 	.pipe($.ejs({mode:'prod'},{}, { ext: '.cshtml'}))
 	// .pipe($.htmlmin(htmlminOptions))
 	.pipe($.htmlBeautify(htmlbeautifyOptions))
 	.pipe(gulp.dest('dist/views'))
+	done()
 })
 // 静态页面导入到static
-gulp.task('toStatic',function(){
+gulp.task('toStatic',function(done){
 	gulp.src('src/ejs/*.ejs')
 	.pipe($.ejs({mode:'mode'},{}, {ext: '.html'}))
 	.pipe($.replace('/images/',replacePath + '/images/'))
@@ -123,29 +133,33 @@ gulp.task('toStatic',function(){
 	.pipe($.replace('/css/',replacePath + '/css/'))
 	.pipe($.htmlBeautify(htmlbeautifyOptions))
 	.pipe(gulp.dest('dist/static'))
+	done()
 })
 
 
 
-gulp.task('reCssImgPath',function(){
+gulp.task('reCssImgPath',function(done){
 	gulp.src('src/css/*.css')
 		.pipe($.replace('/images/',replacePath + '/images/'))
 		.pipe($.replace('/fonts/',replacePath + '/fonts/'))
 		.pipe(gulp.dest('dist/reCss'))
+	done()
 })
 
-gulp.task('image',function(){
+gulp.task('image',function(done){
 	gulp.src('src/images/*.*')
 		.pipe($.imagemin({imageminOptions}))
 		.pipe(gulp.dest('dist/images'))
+	done()
 })
 
-gulp.task('font',function(){
+gulp.task('font',function(done){
 	gulp.src('src/fonts/*.*')
 		.pipe(gulp.dest('dist/fonts'))
+	done()
 })
 
-gulp.task('css',function(){
+gulp.task('css',function(done){
   gulp.src('src/css/*.css')
     .pipe(gulp.dest('dist/css'))
   gulp.src('src/less/*.less')
@@ -157,16 +171,17 @@ gulp.task('css',function(){
     .pipe($.less({}))
     // .pipe($.cleanCss({compatibility: 'ie8'}))	//压缩css
     .pipe(gulp.dest('dist/css'))
+  done()
 });
 
 
 
-gulp.task('build',['replace','image','font','css'])
+gulp.task('build',gulp.series('replace','image','font','css'))
 //替换路径指令
-gulp.task('rePath',['toStatic','reCssImgPath']);
+gulp.task('rePath',gulp.series('toStatic','reCssImgPath'));
 
 //雪碧图
-gulp.task('sprite', function () {
+gulp.task('sprite',function (done) {
     return gulp.src('src/sprite/images/*.png')//需要合并的图片地址
         .pipe(spritesmith({
             imgName: 'src/sprite/sprite.png',//保存合并后图片的地址
@@ -187,4 +202,5 @@ gulp.task('sprite', function () {
                 return arr.join("");
             }
         }))
+    done()
 });
